@@ -17,8 +17,10 @@ const MainPage = () => {
   return (
     <div>
       <h1>Welcome to the Chat Application</h1>
-      <button onClick={goToMessagePage}>Message</button>
-      <button onClick={goToAdminPage}>Admin</button>
+      <div className=''>
+      <button className='' onClick={goToMessagePage}>Message</button>
+      <button className='' onClick={goToAdminPage}>Admin</button>
+      </div>
     </div>
   );
 };

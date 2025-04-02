@@ -37,22 +37,23 @@ const UserChat = () => {
   };
 
   return (
-    <div>
-      <h2>Chat with Admin</h2>
+    <div className="w-[50%] bg-black text-white px-5 flex flex-col justify-center mx-auto mt-20 ">
+      <h2 className="text-center font-bold text-lg md:text-xl lg:text-2xl">Chat with Admin</h2>
       <div>
         {messages.map((msg) => (
-          <p key={msg.id} style={{ textAlign: msg.senderId === userId ? "right" : "left" }}>
-            <strong>{msg.senderId === userId ? "You" : "Admin"}:</strong> {msg.message}
+          <p className="font-[480]" key={msg.id} style={{ textAlign: msg.senderId === userId ? "right" : "left" }}>
+            <strong className="block">{msg.senderId === userId ? "You" : "Admin"}:</strong> {msg.message}
           </p>
         ))}
       </div>
       <input
+        className="border-gray-500 border-2 text-black"
         type="text"
         value={newMessage}
         onChange={(e) => setNewMessage(e.target.value)}
         placeholder="Type a message..."
       />
-      <button onClick={sendMessage}>Send</button>
+      <button onClick={sendMessage} className="bg-cyan-500 text-white px-2 py-[2px]">Send</button>
     </div>
   );
 };
