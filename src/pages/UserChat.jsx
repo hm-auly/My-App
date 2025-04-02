@@ -1,60 +1,58 @@
-import React, { useState, useEffect } from 'react';
-import { db } from '../firebase/config'; // Firebase থেকে DB ইমপোর্ট
-import { collection, addDoc, query, orderBy, onSnapshot } from 'firebase/firestore';
+import { useState, useEffect } from "react";
+import { db } from "../firebase/config";
+import { collection, addDoc, onSnapshot, orderBy, query } from "firebase/firestore";
 
 const UserChat = () => {
-  const [message, setMessage] = useState('');
+  const [userId, setUserId] = useState(null);
   const [messages, setMessages] = useState([]);
-  
-  // মেসেজ পাঠানো
-  const sendMessage = async (e) => {
-    e.preventDefault();
-    if (message) {
-      try {
-        await addDoc(collection(db, "messages"), {
-          text: message,
-          sender: 'user',  // ইউজারের মেসেজ
-          timestamp: new Date(),
-        });
-        setMessage('');
-      } catch (err) {
-        console.error('Error sending message:', err);
-      }
-    }
-  };
+  const [newMessage, setNewMessage] = useState("");
 
-  // মেসেজ লোড করা
   useEffect(() => {
-    const q = query(collection(db, "messages"), orderBy("timestamp"));
-    const unsubscribe = onSnapshot(q, (querySnapshot) => {
-      const messagesArray = [];
-      querySnapshot.forEach((doc) => {
-        messagesArray.push(doc.data());
-      });
-      setMessages(messagesArray);
-    });
-    return () => unsubscribe();
+    const generatedUserId = `user_${Math.random().toString(36).substring(7)}`;
+    setUserId(generatedUserId);
   }, []);
+
+  useEffect(() => {
+    if (userId) {
+      const q = query(collection(db, "messages"), orderBy("timestamp"));
+      const unsubscribe = onSnapshot(q, (snapshot) => {
+        setMessages(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+      });
+
+      return () => unsubscribe();
+    }
+  }, [userId]);
+
+  const sendMessage = async () => {
+    if (newMessage.trim() === "") return;
+
+    await addDoc(collection(db, "messages"), {
+      senderId: userId,
+      receiverId: "admin",
+      message: newMessage,
+      timestamp: new Date()
+    });
+
+    setNewMessage("");
+  };
 
   return (
     <div>
-      <h1>Chat with Admin</h1>
+      <h2>Chat with Admin</h2>
       <div>
-        {messages.map((msg, index) => (
-          <div key={index} style={{ textAlign: msg.sender === 'admin' ? 'left' : 'right' }}>
-            <p>{msg.text}</p>
-          </div>
+        {messages.map((msg) => (
+          <p key={msg.id} style={{ textAlign: msg.senderId === userId ? "right" : "left" }}>
+            <strong>{msg.senderId === userId ? "You" : "Admin"}:</strong> {msg.message}
+          </p>
         ))}
       </div>
-      <form onSubmit={sendMessage}>
-        <input
-          type="text"
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          placeholder="Type your message"
-        />
-        <button type="submit">Send</button>
-      </form>
+      <input
+        type="text"
+        value={newMessage}
+        onChange={(e) => setNewMessage(e.target.value)}
+        placeholder="Type a message..."
+      />
+      <button onClick={sendMessage}>Send</button>
     </div>
   );
 };

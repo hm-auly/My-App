@@ -1,47 +1,43 @@
-import React, { useState } from 'react';
-import { auth } from '../firebase/config'; // Firebase auth
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { useState } from "react";
+import { auth } from "../firebase/config"; // Firebase config import করুন
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 
-const AdminLogin = ({ setIsAdminLogin, setIsAdminAuthenticated }) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+const AdminLogin = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
-
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      setIsAdminAuthenticated(true);  // Set admin authenticated state to true
-      setIsAdminLogin(false);  // Hide login page after successful login
-    } catch (error) {
-      setError('Failed to log in. Please check your credentials.');
+      navigate("/admin-dashboard"); // লগইন সফল হলে এডমিন ড্যাশবোর্ডে নিয়ে যাবে
+    } catch (err) {
+      setError("Invalid email or password.");
     }
   };
 
   return (
-    <div className="flex justify-center items-center h-screen bg-gray-200">
-      <form onSubmit={handleLogin} className="bg-white p-6 rounded-md">
-        <h2 className="text-xl mb-4">Admin Login</h2>
+    <div>
+      <h2>Admin Login</h2>
+      <form onSubmit={handleLogin}>
         <input
           type="email"
-          placeholder="Email"
+          placeholder="Enter email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="p-2 mb-4 border rounded w-full"
         />
         <input
           type="password"
-          placeholder="Password"
+          placeholder="Enter password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="p-2 mb-4 border rounded w-full"
         />
-        {error && <p className="text-red-500 text-sm">{error}</p>}
-        <button type="submit" className="p-2 bg-blue-500 text-white rounded w-full">
-          Login
-        </button>
+        <button type="submit">Login</button>
       </form>
+      {error && <p>{error}</p>}
     </div>
   );
 };
