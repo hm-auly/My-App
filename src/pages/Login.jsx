@@ -1,24 +1,18 @@
 import React, { useState } from 'react';
-import { auth } from '../firebase/config';  // Firebase config ফাইল থেকে auth ইমপোর্ট
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import { useNavigate } from 'react-router-dom';  // react-router-dom থেকে useNavigate ইমপোর্ট
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const navigate = useNavigate();
 
-  const navigate = useNavigate();  // useNavigate হুক ব্যবহার
-
-  const handleLogin = async (e) => {
+  const handleLogin = (e) => {
     e.preventDefault();
-    try {
-      await signInWithEmailAndPassword(auth, email, password);
-      console.log('User logged in successfully');
-      navigate('/admin-dashboard');  // লগইন সফল হলে admin-dashboard পেজে রিডিরেক্ট হবে
-    } catch (error) {
-      setError('Failed to log in. Please check your credentials.');
-      console.error(error.message);
+    // এখানে আপনার লগইন লজিক প্রয়োগ করতে হবে, এখন শুধু চেক করছি
+    if (email === 'admin@example.com' && password === 'adminpassword') {
+      navigate('/admin-dashboard'); // এডমিন লগইন হলে ড্যাশবোর্ডে যাবে
+    } else {
+      navigate('/user-chat'); // ইউজার লগইন হলে চ্যাট পেজে যাবে
     }
   };
 
@@ -42,7 +36,6 @@ const Login = () => {
         />
         <button type="submit">Log In</button>
       </form>
-      {error && <p>{error}</p>}
     </div>
   );
 };

@@ -1,43 +1,60 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { db } from '../firebase/config'; // Firebase থেকে DB ইমপোর্ট
+import { collection, addDoc, query, orderBy, onSnapshot } from 'firebase/firestore';
 
 const UserChat = () => {
-  // message - ইনপুট ফিল্ডের জন্য
   const [message, setMessage] = useState('');
-  // messages - মেসেজগুলির তালিকা
   const [messages, setMessages] = useState([]);
-
-  const handleSendMessage = () => {
-    if (message.trim()) {
-      // মেসেজ পাঠানোর পর, নতুন মেসেজটি messages array তে যোগ করব
-      setMessages([...messages, { sender: 'user', message }]);
-      setMessage(''); // ইনপুট ফিল্ডটি ক্লিয়ার করতে
+  
+  // মেসেজ পাঠানো
+  const sendMessage = async (e) => {
+    e.preventDefault();
+    if (message) {
+      try {
+        await addDoc(collection(db, "messages"), {
+          text: message,
+          sender: 'user',  // ইউজারের মেসেজ
+          timestamp: new Date(),
+        });
+        setMessage('');
+      } catch (err) {
+        console.error('Error sending message:', err);
+      }
     }
   };
 
+  // মেসেজ লোড করা
+  useEffect(() => {
+    const q = query(collection(db, "messages"), orderBy("timestamp"));
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      const messagesArray = [];
+      querySnapshot.forEach((doc) => {
+        messagesArray.push(doc.data());
+      });
+      setMessages(messagesArray);
+    });
+    return () => unsubscribe();
+  }, []);
+
   return (
-    <div className="chat-window">
-      <h3>Chat with Admin</h3>
-      <div className="messages">
-        {/* messages array থেকে প্রতিটি মেসেজ রেন্ডার করা হবে */}
+    <div>
+      <h1>Chat with Admin</h1>
+      <div>
         {messages.map((msg, index) => (
-          <div key={index} className={msg.sender === 'admin' ? 'admin-message' : 'user-message'}>
-            <p>{msg.message}</p>
+          <div key={index} style={{ textAlign: msg.sender === 'admin' ? 'left' : 'right' }}>
+            <p>{msg.text}</p>
           </div>
         ))}
       </div>
-
-      <div className="message-input">
+      <form onSubmit={sendMessage}>
         <input
           type="text"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           placeholder="Type your message"
-          className="p-2 border rounded"
         />
-        <button onClick={handleSendMessage} className="p-2 bg-blue-500 text-white rounded">
-          Send
-        </button>
-      </div>
+        <button type="submit">Send</button>
+      </form>
     </div>
   );
 };
