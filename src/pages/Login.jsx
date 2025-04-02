@@ -1,48 +1,48 @@
 import React, { useState } from 'react';
-import { auth } from '../firebase/config';
+import { auth } from '../firebase/config';  // Firebase config ফাইল থেকে auth ইমপোর্ট
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';  // react-router-dom থেকে useNavigate ইমপোর্ট
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const navigate = useNavigate();
+  const [error, setError] = useState('');
+
+  const navigate = useNavigate();  // useNavigate হুক ব্যবহার
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      navigate('/admin');
+      console.log('User logged in successfully');
+      navigate('/admin-dashboard');  // লগইন সফল হলে admin-dashboard পেজে রিডিরেক্ট হবে
     } catch (error) {
-      console.error("Error logging in: ", error.message);
-      alert("Invalid email or password! Please check your credentials.");
+      setError('Failed to log in. Please check your credentials.');
+      console.error(error.message);
     }
   };
 
   return (
-    <div className="flex justify-center items-center h-screen bg-gray-100">
-      <div className="bg-white p-6 rounded shadow-lg w-80">
-        <h2 className="text-2xl font-bold mb-4">Login</h2>
-        <form onSubmit={handleLogin}>
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="w-full p-2 border mb-4"
-            required
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="w-full p-2 border mb-4"
-            required
-          />
-          <button type="submit" className="w-full bg-blue-500 text-white p-2 rounded">Login</button>
-        </form>
-      </div>
+    <div>
+      <h1>Login</h1>
+      <form onSubmit={handleLogin}>
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Email"
+          required
+        />
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder="Password"
+          required
+        />
+        <button type="submit">Log In</button>
+      </form>
+      {error && <p>{error}</p>}
     </div>
   );
 };

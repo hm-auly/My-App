@@ -1,67 +1,44 @@
 import React, { useState, useEffect } from 'react';
-import { db } from '../firebase/config';  // Firebase database
-import { collection, getDocs } from 'firebase/firestore';
+import { auth } from '../firebase/config';  // Firebase config ফাইল থেকে auth ইমপোর্ট
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { getFirestore, collection, getDocs } from 'firebase/firestore';
 
 const AdminDashboard = () => {
-  const [users, setUsers] = useState([]);
-  const [selectedUser, setSelectedUser] = useState(null);
-  const [chatMessages, setChatMessages] = useState([]);
-
+  const [userList, setUserList] = useState([]);
+  const [currentUser, setCurrentUser] = useState(null);
+  
   useEffect(() => {
-    const fetchUsers = async () => {
-      const usersCollection = collection(db, 'users');
-      const userSnapshot = await getDocs(usersCollection);
-      setUsers(userSnapshot.docs.map(doc => doc.data()));
-    };
-
-    fetchUsers();
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setCurrentUser(user);
+      }
+    });
   }, []);
 
-  const handleUserClick = (user) => {
-    setSelectedUser(user);
-    // Fetch messages for the selected user
-    // Replace this with your logic to fetch the messages
-    setChatMessages([
-      { sender: 'admin', message: 'Hello, how can I help you?' },
-      { sender: 'user', message: 'I need assistance with my order.' },
-    ]);
-  };
-
-  const handleDeleteMessage = (messageIndex) => {
-    // Delete the message from chatMessages
-    setChatMessages(chatMessages.filter((_, index) => index !== messageIndex));
-  };
+  useEffect(() => {
+    if (currentUser) {
+      const db = getFirestore();
+      const usersRef = collection(db, 'users');
+      getDocs(usersRef).then((querySnapshot) => {
+        const users = querySnapshot.docs.map(doc => doc.data());
+        setUserList(users);
+      });
+    }
+  }, [currentUser]);
 
   return (
-    <div className="admin-dashboard">
-      <div className="user-list">
-        <h3>User List</h3>
-        <ul>
-          {users.map((user, index) => (
-            <li key={index} onClick={() => handleUserClick(user)}>
-              {user.email}
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      {selectedUser && (
-        <div className="chat-window">
-          <h3>Chat with {selectedUser.email}</h3>
-          <div className="messages">
-            {chatMessages.map((message, index) => (
-              <div key={index} className={message.sender === 'admin' ? 'admin-message' : 'user-message'}>
-                <p>{message.message}</p>
-                {message.sender === 'admin' && (
-                  <button onClick={() => handleDeleteMessage(index)} className="delete-message">
-                    Delete
-                  </button>
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
+    <div>
+      <h1>Admin Dashboard</h1>
+      <h2>Welcome, {currentUser ? currentUser.email : 'Guest'}</h2>
+      <h3>User List</h3>
+      <ul>
+        {userList.map((user, index) => (
+          <li key={index}>
+            {user.email} <button>Chat</button> {/* Chat button for each user */}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };

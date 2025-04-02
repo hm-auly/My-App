@@ -11,15 +11,17 @@ const firebaseConfig = {
     projectId: "adminchat-7cd34",
     storageBucket: "adminchat-7cd34.firebasestorage.app",
     messagingSenderId: "489255288771",
-    appId: "1:489255288771:web:5c82a4b19727246ac74776"
+    appId: "1:489255288771:web:5c82a4b19727246ac74776",
+    measurementId: "G-JJEFM1P9RP"
   };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
+//const db = getFirestore(firebaseApp);
 const storage = getStorage(app);
-
+// Auly_ullah-132
 export {  
   auth,  
   db,  
