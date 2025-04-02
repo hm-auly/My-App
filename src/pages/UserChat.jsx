@@ -8,8 +8,8 @@ const UserChat = () => {
   const [messages, setMessages] = useState([]);
   const [user, setUser] = useState(null);
 
+  // 🔹 ইউজার যদি লগইন না করে, তাহলে অ্যানোনিমাস অ্যাকাউন্ট তৈরি হবে
   useEffect(() => {
-    // 🔹 ইউজার যদি লগইন না করে, তাহলে অ্যানোনিমাস অ্যাকাউন্ট তৈরি হবে
     signInAnonymously(auth)
       .then((userCredential) => {
         setUser(userCredential.user);
@@ -19,6 +19,7 @@ const UserChat = () => {
       });
   }, []);
 
+  // 🔹 নির্দিষ্ট ইউজারের মেসেজ দেখানোর জন্য
   useEffect(() => {
     if (!user) return;
 
@@ -33,6 +34,7 @@ const UserChat = () => {
     return () => unsubscribe();
   }, [user]);
 
+  // 🔹 মেসেজ পাঠানোর ফাংশন
   const sendMessage = async (e) => {
     e.preventDefault();
     if (!message.trim() || !user) return;
