@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { auth } from '../firebase/config';  // Firebase auth import
+import { auth } from '../firebase/config'; // Firebase auth
 import { signInWithEmailAndPassword } from 'firebase/auth';
 
-const AdminLogin = ({ setIsAdminLogin }) => {
+const AdminLogin = ({ setIsAdminLogin, setIsAdminAuthenticated }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -12,7 +12,8 @@ const AdminLogin = ({ setIsAdminLogin }) => {
 
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      setIsAdminLogin(false);  // Hide the login page after successful login
+      setIsAdminAuthenticated(true);  // Set admin authenticated state to true
+      setIsAdminLogin(false);  // Hide login page after successful login
     } catch (error) {
       setError('Failed to log in. Please check your credentials.');
     }
