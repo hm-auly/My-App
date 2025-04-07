@@ -41,7 +41,9 @@ const AdminDashboard = () => {
   };
 
   return (
-    <div className="flex flex-col bg-slate-400 w-[80%] px-5 py-5 mx-auto">
+    <div>
+      
+ <div className="flex flex-col bg-slate-900 w-full h-screen px-5 py-5 mx-auto">
       <h2 className="text-center font-bold text-lg md:text-xl lg:text-2xl">Admin Dashboard</h2>
       {/* <button onClick={handleLogout}>Logout</button> */}
 
@@ -81,6 +83,8 @@ const AdminDashboard = () => {
        </div>
 </div>     
     </div>
+    </div>
+   
   );
 };
 

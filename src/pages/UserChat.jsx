@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { db } from "../firebase/config";
 import { collection, addDoc, onSnapshot, orderBy, query } from "firebase/firestore";
+import Navber from "../Navber";
 
 const UserChat = () => {
   const [userId, setUserId] = useState(null);
@@ -37,12 +38,14 @@ const UserChat = () => {
   };
 
   return (
-    <div className="w-[50%] bg-black text-white px-5 flex flex-col justify-center mx-auto mt-20 ">
-      <h2 className="text-center font-bold text-lg md:text-xl lg:text-2xl">Chat with Admin</h2>
+    <div>
+      <Navber />
+    <div className="w-full md:w-[50%] bg-gray-800 rounded-md text-white px-5 flex flex-col justify-center mx-auto  py-5 ">
+      <h2 className="text-center font-bold text-lg md:text-xl lg:text-2xl py-5">Chat with Admin</h2>
       <div>
         {messages.map((msg) => (
-          <p className="font-[480]" key={msg.id} style={{ textAlign: msg.senderId === userId ? "right" : "left" }}>
-            <strong className="block">{msg.senderId === userId ? "You" : "Admin"}:</strong> {msg.message}
+          <p key={msg.id} style={{ textAlign: msg.senderId === userId ? "right " : "left" }} className={`${msg.senderId === userId ? "bg-cyan-800 md:ml-36 rounded-lg px-4 py-3 my-5 text-white" : "px-4 py-3 bg-gray-700 my-4 mx-1 md:mr-36 rounded-lg"}`}>
+            <strong className="block">{msg.senderId === userId ? "" : ""}</strong> {msg.message}
           </p>
         ))}
       </div>
@@ -55,6 +58,8 @@ const UserChat = () => {
       />
       <button onClick={sendMessage} className="bg-cyan-500 text-white px-2 py-[2px]">Send</button>
     </div>
+    </div>
+
   );
 };
 

@@ -24,12 +24,14 @@ const AdminLogin = () => {
       <h2>Admin Login</h2>
       <form onSubmit={handleLogin}>
         <input
+        className="text-black"
           type="email"
           placeholder="Enter email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
         <input
+        className="text-black"
           type="password"
           placeholder="Enter password"
           value={password}

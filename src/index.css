@@ -6,7 +6,13 @@
 
 
 
+.NavLinkStyle{
+  @apply flex flex-col justify-center items-center   md:text-xl  font-[500]
+}
 
+.icons{
+  @apply border-2 rounded-full h-12 w-12 border-cyan-500 hover:bg-cyan-700 duration-300;
+}
 
 
 .messages {
@@ -14,3 +20,7 @@
   overflow-y: auto;
 }
 
+.messages {
+  max-height: 400px;
+  overflow-y: auto;
+}
