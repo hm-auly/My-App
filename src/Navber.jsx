@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 function Navber() {
-  const [activ1, setActiv1] = useState(false)
+  const [activ1, setActiv1] = useState(true)
   const [activ2, setActiv2] = useState(false)
   const [activ3, setActiv3] = useState(false)
   const [activ4, setActiv4] = useState(false)
@@ -51,7 +51,7 @@ function Navber() {
   ]
   return (
    <section className=''>
-     <section className='p-0  md:shadow-custom P-0  duration-300 md:h-[60px] flex flex-col justify-center md:my-5 md:rounded-full backdrop-blur-md py-5 md:py-10 bg-transparent shadow-2xl '>
+     <section className='px-5  md:shadow-custom P-0  duration-300 md:h-[60px] flex flex-col justify-center md:my-5 md:rounded-full backdrop-blur-md py-5 md:py-10 bg-transparent shadow-2xl '>
 
 <div className='bg-[bdbdc3] flex justify-between flex-col md:flex-row md:px-5 md:pr-8 items-center '>
  
