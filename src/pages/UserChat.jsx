@@ -39,7 +39,9 @@ const UserChat = () => {
 
   return (
     <div>
+      <div className="px-5">
       <Navber />
+      </div>
     <div className="w-full md:w-[50%] bg-gray-800 rounded-md text-white px-5 flex flex-col justify-center mx-auto  py-5 ">
       <h2 className="text-center font-bold text-lg md:text-xl lg:text-2xl py-5">Chat with Admin</h2>
       <div>
