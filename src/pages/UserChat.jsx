@@ -39,7 +39,7 @@ const UserChat = () => {
   };
 
   return (
-    <div className="h-[100vh] flex flex-col justify-between px-5">
+    <div className="h-[100vh] p-0 overflow-hidden flex flex-col justify-between px-5">
 
       <div className="h-[20vh]">
         <div className="absolut w-full md:flex flex-col  z-50">
