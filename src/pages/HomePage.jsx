@@ -37,7 +37,7 @@ function HomePage() {
        <Faqs />
        <Footer />      */}
        
-      <div className='p-0 fixed md:relative w-full  z-50 '>
+      <div className='px-5 fixed md:relative w-full  z-50 '>
       <Navber  />
       </div>
       <div className='pt-24 md:pt-0'>
