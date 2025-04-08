@@ -43,7 +43,7 @@ function Hiro() {
                         {/* <img className='`bg-[url("/myp3.jpg")]  bg-img rounded-full bg-no-repeat bg-center' src="/Images/Hiro.svg" alt="" /> */}
 
                         <div className='flex items-start'>
-                            <div className={` bg-[url("/myp7.jpg")] h-80 md:h-96 md:w-96 w-80 bg-im rounded-full bg-no-repeat bg-center   bg-cover  `} >
+                            <div className={` bg-[url("/myp7.jpg")] h-72 md:h-96 md:w-96 w-72 bg-im rounded-full bg-no-repeat bg-center   bg-cover  `} >
                                 {/* <img  className='w-80 h-80' src="/myp5.jpg" alt="" /> */}
                             </div>
                         </div>
