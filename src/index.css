@@ -30,3 +30,15 @@
   width: 400px;
   height: 450px;
 }
+
+.ani{
+  animation: all;
+  animation: auly 3s ease-in-out;
+}
+
+@keyframes auly{
+  0%,
+  100%{
+    transform: rotate(360dg);
+  }
+}

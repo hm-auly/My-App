@@ -28,7 +28,10 @@ function Hiro() {
                                 <a href="https://www.linkedin.com/in/auly-ullah-244604352?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app">
                                     <button className='icons'><i class="fa-brands fa-linkedin-in text-2xl text-cyan-500"></i></button>
                                 </a>
-                                <button className='icons'><i class="fa-brands fa-whatsapp text-3xl  text-cyan-500"></i></button>
+
+                               <a href="https://www.tiktok.com/@codedbyauly?_t=ZS-8vLC83UDfLs&_r=1">
+                               <button className='icons'><i class="fa-brands fa-tiktok text-2xl text-cyan-500"></i></button>
+                               </a>
 
 
                             </div>

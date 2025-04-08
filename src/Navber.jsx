@@ -70,15 +70,15 @@ function Navber() {
   <div className='flex  md:gap-16 justify-between md:justify-end items-center w-full '>
     <div className={`NavLinkStyle ${activ1 === true ? "text-cyan-500" : ""}`} onClick={ActivLink1}>
       <i className="fa-solid fa-house text-xl  "></i>
-      <Link to="/admin-login" >Home</Link>
+      <Link to="/" >Home</Link>
     </div>
     <div className={`NavLinkStyle ${activ2 === true ? "text-cyan-500" : ""}`} onClick={ActivLink2}>
       <i class="fa-solid fa-user text-xl "></i>
-      <a href="#">About</a>
+      <a href="no">About</a>
     </div>
     <div className={`NavLinkStyle ${activ3 === true ? "text-cyan-500" : ""}`} onClick={ActivLink3}>
       <i class="fa-solid fa-comment text-xl "></i>
-      <a href="#">Contact</a>
+      <a href="np">Contact</a>
     </div>
     <div className={`NavLinkStyle ${activ4 === true ? "text-cyan-500" : ""}`} onClick={ActivLink4}>
       <i class="fa-brands fa-facebook-messenger text-xl"></i>

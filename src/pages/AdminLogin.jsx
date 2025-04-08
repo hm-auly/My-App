@@ -21,25 +21,27 @@ const AdminLogin = () => {
 
   return (
     <div>
-      <h2>Admin Login</h2>
+      <div className="h-screen flex flex-col items-center justify-center px-5 gap-5">
+      <h2 className="text-3xl font-bold text-cyan-500 py-5">Admin Login</h2>
       <form onSubmit={handleLogin}>
         <input
-        className="text-black"
+        className="text-black w-full h-10 rounded-lg text-2xl"
           type="email"
           placeholder="Enter email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
         <input
-        className="text-black"
+        className="text-black w-full my-5 h-10 rounded-lg text-2xl"
           type="password"
           placeholder="Enter password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button type="submit">Login</button>
+        <button type="submit" className="btn w-full ">Login</button>
       </form>
       {error && <p>{error}</p>}
+    </div>
     </div>
   );
 };

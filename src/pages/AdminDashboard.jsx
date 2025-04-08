@@ -1,10 +1,12 @@
 
-
+import { AiOutlineAlignLeft } from "react-icons/ai";
+import { IoMdSend } from "react-icons/io";
 import { useEffect, useState } from "react";
 import { db, auth } from "../firebase/config";
+
 import { collection, addDoc, onSnapshot, query, orderBy, deleteDoc, doc } from "firebase/firestore";
 import { signOut } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const AdminDashboard = () => {
   const [messages, setMessages] = useState([]);
@@ -40,48 +42,66 @@ const AdminDashboard = () => {
     await deleteDoc(doc(db, "messages", messageId));
   };
 
+  const [sidever, setSidever] = useState(false)
+  const side = ()=>{
+    setSidever(true)
+  }
+  const side2 = ()=>{
+    setSidever(false)
+  }
+  
+  const Naviget = useNavigate()
+
   return (
     <div>
       
- <div className="flex flex-col bg-slate-900 w-full h-screen px-5 py-5 mx-auto">
-      <h2 className="text-center font-bold text-lg md:text-xl lg:text-2xl">Admin Dashboard</h2>
-      {/* <button onClick={handleLogout}>Logout</button> */}
+ <div className="flex flex-col  w-full h-screen  py-5 mx-auto">
+      <h2 className="text-center font-bold text-lg md:text-xl lg:text-2xl py-5">Admin Dashboard</h2>
+     
 
      
-<div className="grid grid-cols-3 ">  
-      <div className="col-span-1 border-2">
-       <button onClick={handleLogout}>Logout</button>
-       <h3>Users List</h3>
+<div className="md:grid md:grid-cols-3   ">  
+      <div className={`md:col-span-1 md:border-2 px-5 ${sidever === false? "hidden md:block" : "absolute bg-gray-800 h-screen top-0 pt-20"} `}>
+       <button className="text-xl font-bold text-cyan-500 pt-5 py-2 " onClick={handleLogout}>Logout</button>
+       <h3 className="text-lg font-bold">Users List</h3>
         {Array.from(new Set(messages.map(msg => msg.senderId)))
           .filter(user => user !== "admin")
           .map(user => (
-            <button className="flex flex-col items-start" key={user} onClick={() => setSelectedUser(user)} >
-               <span>{user}</span>
+            <button  className="flex flex-col items-start" key={user} onClick={() => setSelectedUser(user)} >
+               <span onClick={side2}>{user}</span>
             </button>
           ))}
+         <div className="mt-10 py-5 text-center">
+         <Link to="/" className="btn">Back Home Page</Link>
+         </div>
       </div>
 
-    <div className="col-span-2 border-2"> 
+    <div className=" md:col-span-2 md:border-2 "> 
       <h3 className="text-center text-xl font-[500]">Chat With User</h3>
       <div >
         {messages
           .filter(msg => msg.senderId === selectedUser || msg.receiverId === selectedUser)
           .map(msg => (
-            <div key={msg.id} className="">
-              <p className={ msg.senderId === "admin" ? "flex justify-end text-blue-50" : "flex justify-start"} ><strong >{msg.senderId === "admin" ? "admin" : selectedUser}:</strong> {msg.message}
-              <button onClick={() => deleteMessage(msg.id)} style={{ color: "red" }}>🗑 Delete</button> </p>
+            <div key={msg.id} className=" px-5 font-[600] text-xl my-5 flex justify-between">
+              <p className={ msg.senderId === "admin" ? "text-cyan-500 " : "flex justify-start"} ><strong >{msg.senderId === "admin" ? `Addmin:___` : "User:___"}</strong> {msg.message} </p>
+              <button onClick={() => deleteMessage(msg.id)} style={{ color: "red" }}>🗑 Delete</button>
             </div>
           ))}
       </div>
 
       {selectedUser && (
-        <div className="flex justify-center pt-10 pb-1">
-          <input className="w-[70%]" type="text" value={replyMessage} onChange={(e) => setReplyMessage(e.target.value)} placeholder="Type a reply..." />
-          <button onClick={sendReply}>Send</button>
+        <div className="flex justify-center pt-10 pb-1 px-5">
+          <input className=" w-full  md:w-[70%] text-black rounded-lg font-bold text-3xl px-2 h-11" type="text" value={replyMessage} onChange={(e) => setReplyMessage(e.target.value)} placeholder="Type a reply..." />
+          <button onClick={sendReply}><IoMdSend className=" p-1 flex justify-center items-center  bg-white text-cyan-500 h-11 rounded-full w-11" /></button>
         </div>
       )}
        </div>
 </div>     
+    </div>
+    <div className="">
+        <button onClick={side} className="">
+        <AiOutlineAlignLeft className="ml-2 text-3xl absolute top-7 left-2 md:hidden " />
+        </button>
     </div>
     </div>
    

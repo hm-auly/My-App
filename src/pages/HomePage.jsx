@@ -7,6 +7,7 @@ import DebitCard from '../DebitCard';
 import PerfectCard from '../PerfectCard';
 import UserComment from '../UserComment';
 import IIiit from '../IIiit';
+import { IoStar } from "react-icons/io5";
 import Navber from '../Navber';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
@@ -17,26 +18,7 @@ function HomePage() {
 
 
     <div >
-      {/* <h2 className='font-bold text-2xl'>Welcome to the Chat Application</h2>
-      <div className='flex justify-between w-[20%] pt-8'>   
-      <Link to="/admin-login">
-        <button className='bg-cyan-500 px-2 py-1 text-white'>Admin Login</button>
-      </Link>
-      <Link to="/user-chat">
-        <button className='bg-cyan-500 px-2 py-1 text-white'>User Chat</button>
-      </Link>
-      </div> */}
-
-      {/* <Navberfull />
-       <Hiro />
-       <Vision />
-       <Offer />
-       <DebitCard />
-       <PerfectCard />
-       <UserComment />
-       <Faqs />
-       <Footer />      */}
-       
+      
       <div className='px-5 fixed md:relative w-full  z-50 '>
       <Navber  />
       </div>
@@ -51,11 +33,22 @@ function HomePage() {
       </div>
    
 
+      <div className='flex justify-center items-center'>
+        <div className='h-72 w-72  rounded-full bg-cyan-500 relative ani '>
+       
+          <div className='absolute rounded-full top-0 w-72 h-64 bg-gray-900 z-40 '>
+          <div className=' absolute  top-[20%] left-[50%] transorm -translate-x-1/2 translate-y-1/2'>
+         
+           <Link to="/admin-login" > <IoStar className='text-8xl' /></Link>
+              </div>
+          </div>
+        </div>
+      </div>
 
 
        
 
-    // </div>
+    /</div>
 
 
 

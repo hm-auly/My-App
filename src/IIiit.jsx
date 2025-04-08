@@ -20,7 +20,7 @@ const linkList = (title, list) => (
 function IIiit() {
   return (
      <>
-        <section className="md:px-24 px-5 my-24 py-5 mb-80 bg-[#2928343D] backdrop-blur-sm">
+        <section className="md:px-24 px-5 my-24 py-5  bg-[#2928343D] backdrop-blur-sm">
             <div className="grid grid-cols-2 gap-10 md:grid-cols-4 lg:grid-cols-6 text-center md:text-start">
                 <div className="col-span-2">
                    <div className="flex gap-3 items-center pb-3 justify-center md:justify-start">
