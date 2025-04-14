@@ -39,9 +39,9 @@ const UserChat = () => {
   };
 
   return (
-    <div className="h-[100vh] p-0 overflow-hidden flex flex-col justify-between px-5">
+    <div className="h-screen relative p-0 overflow-hidden flex flex-col justify-between ">
 
-      <div className="h-[20vh]">
+      <div className="px-5">
         <div className="absolut w-full md:flex flex-col  z-50">
           <Navber />
         </div>
@@ -50,7 +50,7 @@ const UserChat = () => {
       {/* <div className="w-full md:w-[90%] xl:w-[70%]  bg-red-600   rounded-md text-white px-5 flex flex-col justify-end mx-auto  py-5 "> */}
 
         {/* message fild */}
-        <div className=" h-[70vh] overflow-scroll">
+        <div className="  overflow-scroll px-5">
           {messages.map((msg) => (
             <p key={msg.id} style={{ textAlign: msg.senderId === userId ? "right " : "left" }} className={`${msg.senderId === userId ? "bg-cyan-800 ml-16 md:ml-36 rounded-lg px-4 py-3 my-5 text-white" : "px-4 py-3 mr-16 bg-gray-700 my-4 mx-1 md:mr-36 rounded-lg"}`}>
               <strong className="block">{msg.senderId === userId ? "" : ""}</strong> {msg.message}
@@ -60,7 +60,7 @@ const UserChat = () => {
 
 
         {/* input fild */}
-        <div className="h-[10vh]  flex justify-center items-center">
+        <div className=" px-5 backdrop-blur-md absolute bottom-0  flex justify-center items-center">
           <input
             className="border-gray-500 border-2 text-black w-[82%] h-12 rounded-full text-xl px-2 "
             type="text"
