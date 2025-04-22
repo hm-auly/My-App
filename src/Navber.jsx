@@ -77,8 +77,8 @@ function Navber() {
       <a href="no">About</a>
     </div>
     <div className={`NavLinkStyle `}>
-      <i class="fa-solid fa-comment text-xl "></i>
-      <a href="np">Contact</a>
+    <i class="fa-solid fa-phone-volume text-xl"></i>
+    <Link to="/Contact" >Home</Link>
     </div>
     <div className={`NavLinkStyle `}>
       <i class="fa-brands fa-facebook-messenger text-xl"></i>

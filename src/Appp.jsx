@@ -6,6 +6,7 @@ import AdminDashboard from './pages/AdminDashboard';
 import UserChat from './pages/UserChat';
 import NotFound from './pages/404Error';  // 404 page
 import Navber from './Navber';
+import Contact from './pages/Contact';
 
 function Appp() {
   return (
@@ -17,6 +18,7 @@ function Appp() {
         <Route path="/admin-login" element={<AdminLogin />} />
         <Route path="/admin-dashboard" element={<AdminDashboard />} />
         <Route path="/user-chat" element={<UserChat />} />
+        <Route path='/Contact' element={<Contact />} />
         <Route path="*" element={<NotFound />} />
 
     {/* </Route> */}
