@@ -51,7 +51,7 @@ function Hiro() {
                         <div className='flex items-center justify-center'>
                             <div className={` bg-[url("/myp77.jpg")] h-72 md:h-96 md:w-96 w-72 bg-im rounded-full bg-no-repeat bg-center   bg-cover  `} >
                             
-                                <h1 className='text-center flex justify-center items-center h-full text-3xl text-cyan-500 shadow-xl bg-transparent'>নিজের পিক দেওয়া নিষেধ</h1>
+                                <h1 className='text-center flex justify-center items-center h-full text-3xl text-cyan-500 '>নিজের পিক দেওয়া নিষেধ</h1>
 
                            </div>
                          </div> 

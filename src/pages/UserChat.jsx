@@ -80,7 +80,7 @@ const UserChat = () => {
           {messages.map((msg) => (
             <p key={msg.id} style={{ textAlign: msg.senderId === userId ? "right " : "left" }} className={`${msg.senderId === userId ? "bg-cyan-800 ml-16 md:ml-36 rounded-lg px-4 py-3 my-5 text-white" : "px-4 py-3 mr-16 bg-gray-700 my-4 mx-1 md:mr-36 rounded-lg "}`}>
               <strong className="">{msg.senderId === userId ? "" : ""}</strong> {msg.message}
-              <p>{displayTime}</p>
+              
             </p>
           ))}
         </div>
