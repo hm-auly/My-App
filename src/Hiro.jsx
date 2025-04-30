@@ -47,15 +47,18 @@ function Hiro() {
                     <div className=' px-5 '>
                         {/* <img className='`bg-[url("/myp3.jpg")]  bg-img rounded-full bg-no-repeat bg-center' src="/Images/Hiro.svg" alt="" /> */}
 
-                        <div className='flex items-start'>
-                            <div className={` bg-[url("/myp7.jpg")] h-72 md:h-96 md:w-96 w-72 bg-im rounded-full bg-no-repeat bg-center   bg-cover  `} >
-                                {/* <img  className='w-80 h-80' src="/myp5.jpg" alt="" /> */}
-                            </div>
-                        </div>
+                            {/* right bg url("/myp7.jpg") */}
+                        <div className='flex items-center justify-center'>
+                            <div className={` bg-[url("/myp77.jpg")] h-72 md:h-96 md:w-96 w-72 bg-im rounded-full bg-no-repeat bg-center   bg-cover  `} >
+                            
+                                <h1 className='text-center flex justify-center items-center h-full text-3xl text-cyan-500 shadow-xl bg-transparent'>নিজের পিক দেওয়া নিষেধ</h1>
 
-                        {/* <div >
-                        <img className='rounded-full h-96 w-96' src="/myp3.jpg" alt="" />
-                    </div> */}
+                           </div>
+                         </div> 
+
+                        {/* /* <div >
+                        <img className='rounded-full h-96 w-96' src="/myp3.jpg" alt="" /> */}
+    
 
                     </div>
 

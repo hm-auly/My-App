@@ -1,13 +1,36 @@
 import { useState, useEffect } from "react";
 import { db } from "../firebase/config";
 import { IoMdSend } from "react-icons/io";
-import { collection, addDoc, onSnapshot, orderBy, query } from "firebase/firestore";
+import { collection, addDoc, onSnapshot, orderBy, query, serverTimestamp } from "firebase/firestore";
 import Navber from "../Navber";
+import { data } from "react-router-dom";
 
 const UserChat = () => {
   const [userId, setUserId] = useState(null);
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
+
+  
+  let savedTime = localStorage.getItem("messageTime");
+
+  if (!savedTime) {
+    // প্রথমবার টাইম সেট
+    const now = new Date();
+    savedTime = now.toISOString();
+    localStorage.setItem("messageTime", savedTime);
+  }
+  
+  // টাইম ফরম্যাট করে দেখানো
+  const displayTime = new Date(savedTime).toLocaleString("bn-BD", {
+    day: "numeric",
+    month: "long",
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true
+  });
+  
+  // console.log(displayTime); // যেমন: "২৫ এপ্রিল, ৩:৪৫ PM"
+
 
   useEffect(() => {
     const generatedUserId = `user_${Math.random().toString(36).substring(7)}`;
@@ -38,6 +61,9 @@ const UserChat = () => {
     setNewMessage("");
   };
 
+  
+
+
   return (
     <div className="h-[100vh]  p-0 overflow-hidden flex flex-col justify-between ">
 
@@ -52,8 +78,9 @@ const UserChat = () => {
         {/* message fild */}
         <div className=" h-[60vh]  overflow-scroll px-5">
           {messages.map((msg) => (
-            <p key={msg.id} style={{ textAlign: msg.senderId === userId ? "right " : "left" }} className={`${msg.senderId === userId ? "bg-cyan-800 ml-16 md:ml-36 rounded-lg px-4 py-3 my-5 text-white" : "px-4 py-3 mr-16 bg-gray-700 my-4 mx-1 md:mr-36 rounded-lg"}`}>
-              <strong className="block">{msg.senderId === userId ? "" : ""}</strong> {msg.message}
+            <p key={msg.id} style={{ textAlign: msg.senderId === userId ? "right " : "left" }} className={`${msg.senderId === userId ? "bg-cyan-800 ml-16 md:ml-36 rounded-lg px-4 py-3 my-5 text-white" : "px-4 py-3 mr-16 bg-gray-700 my-4 mx-1 md:mr-36 rounded-lg "}`}>
+              <strong className="">{msg.senderId === userId ? "" : ""}</strong> {msg.message}
+              <p>{displayTime}</p>
             </p>
           ))}
         </div>
